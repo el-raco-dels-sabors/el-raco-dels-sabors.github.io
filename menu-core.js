@@ -16,7 +16,7 @@
       veg: "Vegetariano", spicy: "Picante", tagline: "Tapas para compartir, sabores para recordar",
       pricesNote: "Precios en euros", scan: "Escanea para ver la carta actualizada",
       changeLang: "Idioma", emptyMenu: "Carta en preparación. ¡Pregunta a nuestro equipo!",
-      backTop: "Volver arriba" },
+      backTop: "Volver arriba", photos: "Nuestros platos", close: "Cerrar", credits: "Créditos de las fotos" },
     ca: { name: "Català", code: "CA", welcome: "Benvinguts", choose: "Tria el teu idioma",
       viewMenu: "Veure la carta", call: "Trucar", book: "Reservar", whatsapp: "WhatsApp",
       directions: "Com arribar", hours: "Horari", address: "Adreça", reservations: "Reserves",
@@ -25,7 +25,7 @@
       veg: "Vegetarià", spicy: "Picant", tagline: "Tapes per compartir, sabors per recordar",
       pricesNote: "Preus en euros", scan: "Escaneja per veure la carta actualitzada",
       changeLang: "Idioma", emptyMenu: "Carta en preparació. Pregunta al nostre equip!",
-      backTop: "Tornar a dalt" },
+      backTop: "Tornar a dalt", photos: "Els nostres plats", close: "Tancar", credits: "Crèdits de les fotos" },
     fr: { name: "Français", code: "FR", welcome: "Bienvenue", choose: "Choisissez votre langue",
       viewMenu: "Voir la carte", call: "Appeler", book: "Réserver", whatsapp: "WhatsApp",
       directions: "Itinéraire", hours: "Horaires", address: "Adresse", reservations: "Réservations",
@@ -34,7 +34,7 @@
       veg: "Végétarien", spicy: "Épicé", tagline: "Des tapas à partager, des saveurs à retenir",
       pricesNote: "Prix en euros", scan: "Scannez pour voir la carte à jour",
       changeLang: "Langue", emptyMenu: "Carte en préparation. Demandez à notre équipe !",
-      backTop: "Haut de page" },
+      backTop: "Haut de page", photos: "Nos plats", close: "Fermer", credits: "Crédits photos" },
     en: { name: "English", code: "EN", welcome: "Welcome", choose: "Choose your language",
       viewMenu: "See the menu", call: "Call", book: "Book a table", whatsapp: "WhatsApp",
       directions: "Directions", hours: "Opening hours", address: "Address", reservations: "Reservations",
@@ -43,7 +43,7 @@
       veg: "Vegetarian", spicy: "Spicy", tagline: "Tapas for sharing, flavours to remember",
       pricesNote: "Prices in euros", scan: "Scan to see the latest menu",
       changeLang: "Language", emptyMenu: "Menu coming soon. Please ask our team!",
-      backTop: "Back to top" }
+      backTop: "Back to top", photos: "Our dishes", close: "Close", credits: "Photo credits" }
   };
 
   /* Traductions par défaut des catégories courantes (clé = nom normalisé). */
@@ -53,6 +53,12 @@
     "sabores de brasil":  { es: "Sabores de Brasil", ca: "Sabors del Brasil", fr: "Saveurs du Brésil", en: "Flavours of Brazil" },
     "especialidades":     { es: "Especialidades", ca: "Especialitats", fr: "Spécialités", en: "Specialities" },
     "para compartir":     { es: "Para compartir", ca: "Per compartir", fr: "À partager", en: "To share" },
+    "arroces":            { es: "Arroces", ca: "Arrossos", fr: "Riz", en: "Rice dishes" },
+    "arrossos":           { es: "Arroces", ca: "Arrossos", fr: "Riz", en: "Rice dishes" },
+    "carnes":             { es: "Carnes", ca: "Carns", fr: "Viandes", en: "Meat" },
+    "carnes y pescado":   { es: "Carnes y pescado", ca: "Carns i peix", fr: "Viandes et poisson", en: "Meat and fish" },
+    "pescados":           { es: "Pescados", ca: "Peixos", fr: "Poissons", en: "Fish" },
+    "ensaladas":          { es: "Ensaladas", ca: "Amanides", fr: "Salades", en: "Salads" },
     "bebidas":            { es: "Bebidas", ca: "Begudes", fr: "Boissons", en: "Drinks" },
     "postres":            { es: "Postres", ca: "Postres", fr: "Desserts", en: "Desserts" },
     "menu de navidad":    { es: "Menú de Navidad", ca: "Menú de Nadal", fr: "Menu de Noël", en: "Christmas menu" },
@@ -161,7 +167,8 @@
     desc:     ["descripcion", "descripcio", "description", "desc", "detalle", "detall", "detail"],
     price:    ["precio", "preu", "prix", "price", "€", "eur", "importe", "import"],
     badge:    ["etiqueta", "etiquette", "badge", "label", "tag", "pastilla", "marca"],
-    visible:  ["visible", "mostrar", "disponible", "afficher", "show", "actiu", "activo"]
+    visible:  ["visible", "mostrar", "disponible", "afficher", "show", "actiu", "activo"],
+    photo:    ["foto", "photo", "imagen", "imatge", "image", "picture", "fotografia"]
   };
   function headerCell(cell) {
     var n = norm(cell);
@@ -186,7 +193,8 @@
     { field: "category", lang: "es" }, { field: "name", lang: "es" }, { field: "desc", lang: "es" },
     { field: "price", lang: "es" }, { field: "badge", lang: "es" }, { field: "visible", lang: "es" },
     { field: "name", lang: "ca" }, { field: "name", lang: "fr" }, { field: "name", lang: "en" },
-    { field: "desc", lang: "ca" }, { field: "desc", lang: "fr" }, { field: "desc", lang: "en" }
+    { field: "desc", lang: "ca" }, { field: "desc", lang: "fr" }, { field: "desc", lang: "en" },
+    { field: "photo", lang: "es" }
   ];
 
   /* ---------- lignes -> carte ---------- */
@@ -202,7 +210,7 @@
     var byKey = {}, order = [], lastCat = "";
     for (var i = start; i < rows.length; i++) {
       var row = rows[i]; if (!row) continue;
-      var rec = { names: {}, descs: {}, price: null, badge: "", badgeText: "", cat: "", visibleRaw: "" };
+      var rec = { names: {}, descs: {}, price: null, badge: "", badgeText: "", cat: "", visibleRaw: "", photo: "" };
       for (var c = 0; c < row.length; c++) {
         var h = map[c]; if (!h) continue;
         var val = row[c]; var sval = (val == null) ? "" : String(val).trim();
@@ -212,6 +220,7 @@
         else if (h.field === "price") rec.price = parsePrice(val);
         else if (h.field === "badge") rec.badgeText = sval;
         else if (h.field === "visible") rec.visibleRaw = sval;
+        else if (h.field === "photo") rec.photo = sval;
       }
       var name = rec.names.es || rec.names.ca || rec.names.fr || rec.names.en;
       if (!name) continue;
@@ -221,7 +230,7 @@
       var key = norm(cat) || "otros";
       if (!byKey[key]) { byKey[key] = { key: key, id: slug(cat || "otros"), raw: cat, items: [] }; order.push(key); }
       rec.badge = badgeKind(rec.badgeText);
-      byKey[key].items.push({ names: rec.names, descs: rec.descs, price: rec.price, badge: rec.badge, badgeText: rec.badgeText });
+      byKey[key].items.push({ names: rec.names, descs: rec.descs, price: rec.price, badge: rec.badge, badgeText: rec.badgeText, photo: rec.photo });
     }
     order.forEach(function (k) { if (byKey[k].items.length) out.categories.push(byKey[k]); });
     return out;
@@ -321,12 +330,28 @@
   }
   function itemName(item, lang) { return pick(item.names, lang); }
   function itemDesc(item, lang) { return pick(item.descs, lang); }
+  /* "pulpo.jpg" -> fichier à côté du site ; "https://…" -> adresse complète */
+  function photoUrl(photo) {
+    var p = String(photo || "").trim();
+    if (!p) return "";
+    if (/^(https?:)?\/\//i.test(p) || /^data:/i.test(p)) return p;
+    return p.replace(/^\/+/, "");
+  }
+
+  /* version légère "foto-x-s.jpg" pour les vignettes ; identique à photoUrl pour les adresses https */
+  function thumbUrl(photo) {
+    var p = photoUrl(photo);
+    if (!p || /^(https?:)?\/\//i.test(p) || /^data:/i.test(p)) return p;
+    var m = p.match(/^(.*)(\.jpe?g|\.png|\.webp)$/i);
+    return m ? m[1] + "-s" + m[2] : p;
+  }
 
   global.MenuCore = {
     LANGS: LANGS, LABELS: LABELS, CATEGORY_DEFAULTS: CATEGORY_DEFAULTS,
     norm: norm, slug: slug, pick: pick, parseCSV: parseCSV, parsePrice: parsePrice, formatPrice: formatPrice,
     badgeKind: badgeKind, rowsToMenu: rowsToMenu, categoriesFromRows: categoriesFromRows,
     infoFromRows: infoFromRows, infoFromConfig: infoFromConfig,
-    telHref: telHref, waHref: waHref, mapsLink: mapsLink, catName: catName, itemName: itemName, itemDesc: itemDesc
+    telHref: telHref, waHref: waHref, mapsLink: mapsLink, catName: catName, itemName: itemName, itemDesc: itemDesc,
+    photoUrl: photoUrl, thumbUrl: thumbUrl
   };
 })(typeof window !== "undefined" ? window : globalThis);

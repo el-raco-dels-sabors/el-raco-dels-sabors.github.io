@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La carta · El Racó dels Sabors</title>
 <meta name="description" content="Bar Tapería El Racó dels Sabors, Escaldes-Engordany (Andorra). Tapas, sabores de Brasil y platos para compartir. Carta y reservas.">
-<meta name="theme-color" content="#174A35">
+<meta name="theme-color" content="#F3E6CF">
 <meta property="og:title" content="El Racó dels Sabors · Bar Tapería">
 <meta property="og:description" content="Tapes per compartir, sabors per recordar. Escaldes-Engordany, Andorra.">
 <meta property="og:image" content="icon-512.png">
@@ -21,12 +21,10 @@
 <!-- Écran de bienvenue : choix de la langue -->
 <div class="langpick" id="langpick" role="dialog" aria-modal="true" aria-label="Idioma / Language" hidden>
   <div class="langpick__card">
-    <div class="langpick__logo">
-      <picture>
-        <source srcset="logo.webp" type="image/webp">
-        <img src="logo.png" alt="Bar Tapería El Racó dels Sabors" width="900" height="714">
-      </picture>
-    </div>
+    <picture>
+      <source srcset="logo-medaillon.webp" type="image/webp">
+      <img class="langpick__logo" src="logo-medaillon.png" alt="El Racó dels Sabors" width="600" height="600">
+    </picture>
     <p class="langpick__hello"><span>Benvinguts</span><span class="dot">·</span><span>Bienvenidos</span><br><span>Bienvenue</span><span class="dot">·</span><span>Welcome</span></p>
     <div class="langpick__grid">
       <button class="langbtn" type="button" data-lang-btn="ca"><span class="langbtn__name">Català</span><span class="langbtn__code">CA</span></button>
@@ -34,12 +32,13 @@
       <button class="langbtn" type="button" data-lang-btn="fr"><span class="langbtn__name">Français</span><span class="langbtn__code">FR</span></button>
       <button class="langbtn" type="button" data-lang-btn="en"><span class="langbtn__name">English</span><span class="langbtn__code">EN</span></button>
     </div>
-    <p class="langpick__foot">Brasil • Andorra</p>
+    <p class="langpick__foot" id="lp-foot">Bar Tapería</p>
   </div>
 </div>
 
 <header class="hero" id="top">
   <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
   <div class="wrap hero__inner">
     <div class="langbar" role="group" aria-label="Idioma">
       <button type="button" data-lang-btn="ca">CA</button>
@@ -47,18 +46,16 @@
       <button type="button" data-lang-btn="fr">FR</button>
       <button type="button" data-lang-btn="en">EN</button>
     </div>
-    <div class="hero__logo">
-      <picture>
-        <source srcset="logo.webp" type="image/webp">
-        <img src="logo.png" alt="Bar Tapería El Racó dels Sabors" width="900" height="714" fetchpriority="high">
-      </picture>
-    </div>
+    <picture>
+      <source srcset="logo-medaillon.webp" type="image/webp">
+      <img class="hero__logo" src="logo-medaillon.png" alt="El Racó dels Sabors" width="600" height="600" fetchpriority="high">
+    </picture>
     <div class="hero__text">
       <p class="hero__kicker" id="r-kicker">Bar Tapería</p>
       <h1 class="hero__title" id="r-name">El Racó dels Sabors</h1>
       <p class="hero__tagline" id="r-tagline">Tapes per compartir, sabors per recordar</p>
       <p class="hero__tagline-tr" id="r-tagline-tr" hidden></p>
-      <div class="tricolor" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="orn" aria-hidden="true"><i></i><b></b><i></i></div>
       <div class="hero__cta">
         <a class="btn btn--primary" href="#carta" id="btn-menu">Ver la carta
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -81,7 +78,23 @@
       </div>
     </div>
   </div>
+  <!-- Crête des Pyrénées et soleil, en tons sable : la section crème monte comme des sommets -->
+  <svg class="hero__ridge" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <circle class="sun" cx="1010" cy="60" r="58" fill="#F2B928" opacity=".22"/>
+    <circle class="sun" cx="1010" cy="60" r="30" fill="#F2B928"/>
+    <path d="M0 80 L110 54 L200 68 L320 30 L410 60 L520 40 L640 72 L760 36 L860 62 L980 46 L1100 76 L1220 50 L1320 66 L1440 42 L1440 120 L0 120 Z" fill="rgba(120,84,32,.20)"/>
+    <path d="M0 98 L90 86 L180 94 L300 70 L390 90 L480 78 L600 100 L700 74 L800 92 L900 82 L1000 102 L1120 80 L1240 96 L1340 86 L1440 98 L1440 120 L0 120 Z" fill="#F8F1E4"/>
+  </svg>
 </header>
+
+<!-- Bandeau de photos de plats (affiché seulement s'il y a des photos) -->
+<section class="strip reveal" id="strip" hidden>
+  <div class="strip__head">
+    <h2 class="strip__title" id="strip-title">Nuestros platos</h2>
+    <span class="strip__rule" aria-hidden="true"></span>
+  </div>
+  <div class="strip__scroll" id="strip-scroll"></div>
+</section>
 
 <div class="notice" id="notice" hidden></div>
 
@@ -116,11 +129,21 @@
   </div>
   <p class="foot__allergen" id="f-allergens"></p>
   <div class="foot__brand">
-    <span id="f-brand">Brasil • Andorra</span>
-    <div class="tricolor" aria-hidden="true"><i></i><i></i><i></i></div>
+    <span id="f-brand">Tapes per compartir, sabors per recordar</span>
+    <div class="orn" aria-hidden="true"><i></i><b></b><i></i></div>
     <a class="foot__top" id="f-top" href="#top">Volver arriba</a>
+    <a class="foot__credits" id="f-credits" href="creditos.html">Créditos de las fotos</a>
   </div>
 </footer>
+
+<!-- Photo en plein écran -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto" hidden>
+  <button class="lightbox__close" id="lb-close" type="button" aria-label="Cerrar">×</button>
+  <figure class="lightbox__fig">
+    <img id="lb-img" src="" alt="">
+    <figcaption class="lightbox__cap"><span id="lb-name"></span><span class="price" id="lb-price"></span></figcaption>
+  </figure>
+</div>
 
 <noscript><p style="text-align:center;padding:20px">Bar Tapería El Racó dels Sabors · Avinguda del Pessebre 39, Escaldes-Engordany · +376 371 369</p></noscript>
 

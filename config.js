@@ -9,7 +9,7 @@ window.RESTAURANT = {
   "name": "El Racó dels Sabors",
   "kicker": "Bar Tapería",
   "tagline": "Tapes per compartir, sabors per recordar",
-  "subline": "Brasil • Andorra",
+  "subline": "",
   "address": "Avinguda del Pessebre 39, Escaldes-Engordany, Andorra",
   "phone": "+376 371 369",
   "whatsapp": "",
