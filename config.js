@@ -21,7 +21,7 @@ window.RESTAURANT = {
   "instagram": "",
   "siteUrl": "https://el-raco-dels-sabors.github.io/",
   "sheet": {
-    "id": "",
+    "id": "18iabaAxRDdVxfM0oEDtmIDepgLcNQxVAAlWgWOG48kk",
     "menuTab": "Carta",
     "infoTab": "Info"
   }

@@ -102,7 +102,7 @@
     if (call) { call.href = tel || "#"; call.hidden = !tel; $(".action__label", call).textContent = t("book"); $(".action__sub", call).textContent = phone; }
     var wa = $("#act-wa"), waHref = C.waHref(info.whatsapp);
     if (wa) { wa.href = waHref || "#"; wa.hidden = !waHref; $(".action__label", wa).textContent = t("whatsapp"); }
-    var map = $("#act-map"), mapHref = C.mapsLink(info.address, info.mapsUrl);
+    var map = $("#act-map"), mapHref = C.mapsLink(C.pick(info.address, lg), info.mapsUrl);
     if (map) { map.href = mapHref || "#"; map.hidden = !mapHref; $(".action__label", map).textContent = t("directions"); }
     var actions = $("#actions");
     if (actions) actions.setAttribute("data-count", String([tel, waHref, mapHref].filter(Boolean).length));
@@ -212,7 +212,8 @@
   function renderFooter() {
     var info = model.info, lg = lang || "es";
     setText("#f-address-label", t("address"));
-    var addr = $("#f-address"); if (addr) { addr.textContent = info.address || ""; addr.href = C.mapsLink(info.address, info.mapsUrl) || "#"; }
+    var address = C.pick(info.address, lg);  /* texte simple (config.js) ou par langue (onglet Info) */
+    var addr = $("#f-address"); if (addr) { addr.textContent = address || ""; addr.href = C.mapsLink(address, info.mapsUrl) || "#"; }
     setText("#f-phone-label", t("reservations"));
     var ph = $("#f-phone"); if (ph) { ph.textContent = info.phone || ""; ph.href = C.telHref(info.phone) || "#"; }
     var hoursBlock = $("#f-hours-block"), hoursList = $("#f-hours");
@@ -225,9 +226,9 @@
       hoursBlock.hidden = !has;
       if (has) { setText("#f-hours-label", t("hours")); hours.forEach(function (h) { hoursList.appendChild(el("li", null, h)); }); }
     }
-    /* texte par langue si fourni (onglet Info), sinon traduction par défaut ; le texte
-       unique de config.js n'est utilisé que pour l'espagnol */
-    var allergens = (info.allergens && typeof info.allergens === "object") ? C.pick(info.allergens, lg)
+    /* phrase allergènes : celle de l'onglet Info dans la langue affichée si elle existe,
+       sinon la traduction standard (on ne montre pas la phrase espagnole en français) */
+    var allergens = (info.allergens && typeof info.allergens === "object") ? (info.allergens[lg] || "")
                   : (lg === "es" && typeof info.allergens === "string") ? info.allergens : "";
     setText("#f-allergens", allergens || t("allergens"));
     var ig = $("#f-instagram");
